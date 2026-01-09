@@ -1,6 +1,6 @@
 import POP3Client from "poplib";
 import PostalMime from "postal-mime";
-import { prisma } from "prisma";
+import { prisma } from "./lib/prisma.mjs";
 
 const mailsetting = {
   username: process.env.MAIL_USERNAME,
@@ -238,3 +238,13 @@ export const getEmailList = async () => {
   // メールリスト返却
   return emails;
 };
+
+emailProcessor()
+  .then(() => {
+    console.log("メール取得完了！");
+    process.exit(0);
+  })
+  .catch((err) => {
+    console.error("致命的なエラー:", err);
+    process.exit(1);
+  });
