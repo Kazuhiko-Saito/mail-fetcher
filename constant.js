@@ -2,71 +2,115 @@
 export const keywords= [
   {
     name: "Java",
-    re: /Java(?!Script)/i,
+    re: /Java(?!Script)/ig,
   },
   {
     name: "JavaScript",
-    re: /JavaScript/i,
+    re: /JavaScript/ig,
   },
   {
     name: "TypeScript",
-    re: /TypeScript/i,
+    re: /TypeScript/ig,
   },
   {
     name: "Node.js",
-    re: /Node\.js/i,
+    re: /Node\.js/ig,
   },
   {
     name: "React",
-    re: /React/i,
+    re: /React/ig,
   },
   {
     name: "Vue",
-    re: /Vue/i,
+    re: /Vue/ig,
   },
   {
     name: "Python",
-    re: /Python/i,   
+    re: /Python/ig,   
   },
   {
     name: "Ruby",
-    re: /Ruby/i,
+    re: /Ruby/ig,
   },
   {
     name: "PHP",
-    re: /PHP/i,
+    re: /PHP/ig,
   },
   {
     name: "C++",
-    re: /C\+\+/i,
+    re: /C\+\+/ig,
   },
   {
     name: "C#",
-    re: /C\#/i,
+    re: /C\#/ig,
   },
   {
     name: "Swift",
-    re: /Swift/i,
+    re: /Swift/ig,
   },
   {
     name: "Kotlin",
-    re: /Kotlin/i,
+    re: /Kotlin/ig,
   },
   {
     name: "HTML",
-    re: /HTML/i,
+    re: /HTML/ig,
   },
   {
     name: "CSS",
-    re: /CSS/i,
+    re: /CSS/ig,
   },
   {
     name: "SQL",
-    re: /(!PL\/)SQL/i,
+    re: /(!PL\/)SQL/ig,
   },
   {
     name: "PL/SQL",
-    re: /PL\/SQL/i,
+    re: /PL\/SQL/ig,
+  },
+  {
+    name: "Oracle",
+    re: /Oracle/ig,
+  },
+  {
+    name: "MySQL",
+    re: /MySQL/ig,
+  },
+  {
+    name: "PostgreSQL", 
+    re: /PostgreSQL/ig,
+  },
+  {
+    name: "MongoDB",
+    re: /MongoDB/ig,
+  },
+  {
+    name: "Redis",
+    re: /Redis/ig,
+  },
+  {
+    name: "Elasticsearch",
+    re: /Elasticsearch/ig,
+  },
+  {
+    name: "Docker",
+    re: /Docker/ig,
+  },
+  {
+    name: "Kubernetes",
+    re: /Kubernetes/ig,
+  },
+  {
+    name: "AWS",
+    re: /AWS/ig,
+  },
+  {
+    name: "Azure",
+    re: /Azure/ig,
+  },
+  {
+    name: "GCP",
+    re: /(GCP|Google[ ]+Cloud[ ]+Platform)/ig,
   },
 ];
 
@@ -74,6 +118,6 @@ export const keywords= [
 export const extractions = [
   {
      name: "サンプル",
-     re: /サンプル/g
+     re: /サンプル/ig
 },
 ];

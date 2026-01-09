@@ -160,7 +160,7 @@ const storeMail = async (data) => {
       }
     });
   } catch (e) {
-    console.error("[ERR] ", (e).message);
+    console.error(e.message);
     throw e;
   }
   // キーワード検索
@@ -186,7 +186,7 @@ const searchKeyword = (body) => {
   // キーワード検索
   keywords.forEach((keyword) => {
     // 正規表現検索
-    const result = body.search(keyword.re);
+    const result = body.search(new RegExp(keyword.re));
     if (result > 0) {
       console.log("Tag: " + keyword.name);
       tag.push(keyword);
