@@ -2,115 +2,115 @@
 export const keywords= [
   {
     name: "Java",
-    re: /Java(?!Script)/ig,
+    re: /Java(?!Script)/igm,
   },
   {
     name: "JavaScript",
-    re: /JavaScript/ig,
+    re: /JavaScript/igm,
   },
   {
     name: "TypeScript",
-    re: /TypeScript/ig,
+    re: /TypeScript/igm,
   },
   {
     name: "Node.js",
-    re: /Node\.js/ig,
+    re: /Node\.js/igm,
   },
   {
     name: "React",
-    re: /React/ig,
+    re: /React/igm,
   },
   {
     name: "Vue",
-    re: /Vue/ig,
+    re: /Vue/igm,
   },
   {
     name: "Python",
-    re: /Python/ig,   
+    re: /Python/igm,   
   },
   {
     name: "Ruby",
-    re: /Ruby/ig,
+    re: /Ruby/igm,
   },
   {
     name: "PHP",
-    re: /PHP/ig,
+    re: /PHP/igm,
   },
   {
     name: "C++",
-    re: /C\+\+/ig,
+    re: /C\+\+/igm,
   },
   {
     name: "C#",
-    re: /C\#/ig,
+    re: /C\#/igm,
   },
   {
     name: "Swift",
-    re: /Swift/ig,
+    re: /Swift/igm,
   },
   {
     name: "Kotlin",
-    re: /Kotlin/ig,
+    re: /Kotlin/igm,
   },
   {
     name: "HTML",
-    re: /HTML/ig,
+    re: /HTML/igm,
   },
   {
     name: "CSS",
-    re: /CSS/ig,
+    re: /CSS/igm,
   },
   {
     name: "SQL",
-    re: /(!PL\/)SQL/ig,
+    re: /(!PL\/)SQL/igm,
   },
   {
     name: "PL/SQL",
-    re: /PL\/SQL/ig,
+    re: /PL\/SQL/igm,
   },
   {
     name: "Oracle",
-    re: /Oracle/ig,
+    re: /Oracle/igm,
   },
   {
     name: "MySQL",
-    re: /MySQL/ig,
+    re: /MySQL/igm,
   },
   {
     name: "PostgreSQL", 
-    re: /PostgreSQL/ig,
+    re: /PostgreSQL/igm,
   },
   {
     name: "MongoDB",
-    re: /MongoDB/ig,
+    re: /MongoDB/igm,
   },
   {
     name: "Redis",
-    re: /Redis/ig,
+    re: /Redis/igm,
   },
   {
     name: "Elasticsearch",
-    re: /Elasticsearch/ig,
+    re: /Elasticsearch/igm,
   },
   {
     name: "Docker",
-    re: /Docker/ig,
+    re: /Docker/igm,
   },
   {
     name: "Kubernetes",
-    re: /Kubernetes/ig,
+    re: /Kubernetes/igm,
   },
   {
     name: "AWS",
-    re: /AWS/ig,
+    re: /AWS/igm,
   },
   {
     name: "Azure",
-    re: /Azure/ig,
+    re: /Azure/igm,
   },
   {
     name: "GCP",
-    re: /(GCP|Google[ ]+Cloud[ ]+Platform)/ig,
+    re: /(GCP|Google[ ]+Cloud[ ]+Platform)/igm,
   },
 ];
 
@@ -118,6 +118,6 @@ export const keywords= [
 export const extractions = [
   {
      name: "サンプル",
-     re: /サンプル/ig
+     re: /サンプル/igm
 },
 ];
