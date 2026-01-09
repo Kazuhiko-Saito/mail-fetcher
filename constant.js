@@ -1,53 +1,79 @@
 // 検索用キーワード
 export const keywords= [
   {
-    name: "Java", re: /Java(?!Script)/i,
+    name: "Java",
+    re: /Java(?!Script)/i,
   },
   {
-    name: "JavaScript", re: /JavaScript/i,
+    name: "JavaScript",
+    re: /JavaScript/i,
   },
   {
-    name: "TypeScript", re: /TypeScript/i,
+    name: "TypeScript",
+    re: /TypeScript/i,
   },
   {
-    name: "Node.js", re: /Node\.js/i,
+    name: "Node.js",
+    re: /Node\.js/i,
   },
   {
-    name: "Python", re: /Python/i,   
+    name: "React",
+    re: /React/i,
   },
   {
-    name: "Ruby", re: /Ruby/i,
+    name: "Vue",
+    re: /Vue/i,
   },
   {
-    name: "PHP", re: /PHP/i,
+    name: "Python",
+    re: /Python/i,   
   },
   {
-    name: "C++", re: /C\+\+/i,
+    name: "Ruby",
+    re: /Ruby/i,
   },
   {
-    name: "C#", re: /C\#/i,
+    name: "PHP",
+    re: /PHP/i,
   },
   {
-    name: "Swift", re: /Swift/i,
+    name: "C++",
+    re: /C\+\+/i,
   },
   {
-    name: "Kotlin", re: /Kotlin/i,
+    name: "C#",
+    re: /C\#/i,
   },
   {
-    name: "HTML", re: /HTML/i,
+    name: "Swift",
+    re: /Swift/i,
   },
   {
-    name: "CSS", re: /CSS/i,
+    name: "Kotlin",
+    re: /Kotlin/i,
   },
   {
-    name: "SQL", re: /SQL/i,
+    name: "HTML",
+    re: /HTML/i,
   },
   {
-    name: "PL/SQL", re: /PL\/SQL/i,
+    name: "CSS",
+    re: /CSS/i,
+  },
+  {
+    name: "SQL",
+    re: /(!PL\/)SQL/i,
+  },
+  {
+    name: "PL/SQL",
+    re: /PL\/SQL/i,
   },
 ];
 
 // 抽出用キーワード
 export const extractions = [
-  { name: "サンプル", re: /サンプル/g },
+  {
+     name: "サンプル",
+     re: /サンプル/g
+},
 ];
