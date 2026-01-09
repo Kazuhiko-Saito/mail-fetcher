@@ -2,6 +2,8 @@ import POP3Client from "poplib";
 import PostalMime from "postal-mime";
 import { prisma } from "./lib/prisma.mjs";
 
+const FORCE_MODE = process.argv.includes('--force');
+
 const mailsetting = {
   username: process.env.MAIL_USERNAME,
   password: process.env.MAIL_PASSWORD,
@@ -82,7 +84,11 @@ export const emailFetcher = () => {
       } else {
         console.log("RETR success for msgnumber " + msgnumber);
         try {
-          if (await storeMail(data)) {
+          const isStored = await storeMail(data);
+          if (isStored || FORCE_MODE) {
+            if (!isStored) {
+               console.log("重複していますが、全件処理モードのため続行します。");
+            }
             if (currentMsgNum > 1) {
               currentMsgNum--;
               client.retr(currentMsgNum);

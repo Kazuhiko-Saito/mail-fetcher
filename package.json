@@ -7,7 +7,8 @@
   "type": "module",
   "main": "emailFetcher.js",
   "scripts": {
-    "exec": "npx tsx index.mjs"
+    "exec": "npx tsx emailFetcher.mjs",
+    "exec-all": "npx tsx emailFetcher.mjs --force"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
