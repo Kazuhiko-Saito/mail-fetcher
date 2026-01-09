@@ -22,7 +22,7 @@ const extractions = [
 let currentMsgNum = 1;
 let totalMsgCount = 0;
 
-export const emailProcessor = () => {
+export const emailFetcher = () => {
   return new Promise((resolve, reject) => {
     const client = new POP3Client(
       mailsetting.server.port,
@@ -239,7 +239,7 @@ export const getEmailList = async () => {
   return emails;
 };
 
-emailProcessor()
+emailFetcher()
   .then(() => {
     console.log("メール取得完了！");
     process.exit(0);
