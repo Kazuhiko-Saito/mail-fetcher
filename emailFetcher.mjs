@@ -1,6 +1,7 @@
 import POP3Client from "poplib";
 import PostalMime from "postal-mime";
 import { prisma } from "./lib/prisma.mjs";
+import { keywords, extractions } from "./constant.js";
 
 const FORCE_MODE = process.argv.includes('--force');
 
@@ -12,14 +13,6 @@ const mailsetting = {
     port: process.env.MAIL_SERVERPORT,
   },
 };
-
-// 検索用キーワード
-const keywords= [];
-
-// 抽出用キーワード
-const extractions = [
-  { name: "サンプル", regex: /サンプル/g },
-];
 
 let currentMsgNum = 1;
 let totalMsgCount = 0;
@@ -96,6 +89,7 @@ export const emailFetcher = () => {
               client.quit();
             }
           } else {
+            console.log("重複のため処理を終了します。");
             client.quit();
           }
         } catch (e) {
@@ -131,7 +125,7 @@ const storeMail = async (data) => {
     !email.date ||
     !body
   ) {
-    console.log("必要情報がありません。");
+    console.log("必要情報がありません。登録をスキップします。");
     return true;
   }
 
@@ -191,8 +185,10 @@ const searchKeyword = (body) => {
 
   // キーワード検索
   keywords.forEach((keyword) => {
-    if (body.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())) {
-      console.log("Tag: " + keyword);
+    // 正規表現検索
+    const result = body.search(keyword.re);
+    if (result > 0) {
+      console.log("Tag: " + keyword.name);
       tag.push(keyword);
     }
   });
@@ -225,26 +221,7 @@ const extractionRegex = (body) => {
   return text;
 };
 
-// メールリスト取得
-export const getEmailList = async () => {
-  // メールリスト取得
-  const emails = await prisma.email.findMany({
-    select: {
-      message_id: true,
-      subject: true,
-      sender: true,
-      received_at: true,
-      body: true
-    },
-    orderBy: {
-      received_at: "desc",
-    },
-  });
-
-  // メールリスト返却
-  return emails;
-};
-
+// メール取得実行
 emailFetcher()
   .then(() => {
     console.log("メール取得完了！");
