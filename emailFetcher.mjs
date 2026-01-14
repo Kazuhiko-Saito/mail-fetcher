@@ -1,11 +1,10 @@
 import POP3Client from "poplib";
 import PostalMime from "postal-mime";
 import { prisma } from "./lib/prisma.mjs";
-import { keywords, extractions } from "./constant.js";
 
-const FORCE_MODE = process.argv.includes('--force');
+const FORCE_MODE = process.argv.includes("--force");
 
-const mailsetting = {
+const mailSetting = {
   username: process.env.MAIL_USERNAME,
   password: process.env.MAIL_PASSWORD,
   server: {
@@ -20,8 +19,8 @@ let totalMsgCount = 0;
 export const emailFetcher = () => {
   return new Promise((resolve, reject) => {
     const client = new POP3Client(
-      mailsetting.server.port,
-      mailsetting.server.name,
+      mailSetting.server.port,
+      mailSetting.server.name,
       {
         tlserrs: false,
         enabletls: false,
@@ -37,7 +36,7 @@ export const emailFetcher = () => {
 
     client.on("connect", () => {
       console.log("CONNECT success");
-      client.login(mailsetting.username, mailsetting.password);
+      client.login(mailSetting.username, mailSetting.password);
     });
 
     client.on("login", (status, rawdata) => {
@@ -80,7 +79,7 @@ export const emailFetcher = () => {
           const isStored = await storeMail(data);
           if (isStored || FORCE_MODE) {
             if (!isStored) {
-               console.log("重複していますが、全件処理モードのため続行します。");
+              console.log("重複していますが、全件処理モードのため続行します。");
             }
             if (currentMsgNum > 1) {
               currentMsgNum--;
@@ -135,7 +134,7 @@ const storeMail = async (data) => {
       message_id: email.messageId,
     },
   });
-  
+
   if (existingEmail) {
     console.log("すでに登録されています。");
     return false;
@@ -144,7 +143,9 @@ const storeMail = async (data) => {
   // NULL文字除去
   const cleanMessageId = (email.messageId || "").replace(/\x00/g, "");
   const cleanSubject = (email.subject || "").replace(/\x00/g, "");
-  const cleanSender = `${email.from?.name || ""} <${email.from?.address || ""}>`.replace(/\x00/g, "");
+  const cleanSender = `${email.from?.name || ""} <${
+    email.from?.address || ""
+  }>`.replace(/\x00/g, "");
   const cleanBody = (body || "").replace(/\x00/g, "");
 
   // DB登録
@@ -157,7 +158,7 @@ const storeMail = async (data) => {
         sender: cleanSender,
         received_at: email.date ? new Date(email.date) : new Date(),
         body: cleanBody,
-      }
+      },
     });
   } catch (e) {
     console.error(e.message);
@@ -171,54 +172,6 @@ const storeMail = async (data) => {
 
   // 正常終了
   return true;
-};
-
-// キーワード検索
-const searchKeyword = (body) => {
-  // キーワードチェック
-  if (keywords.length === 0) {
-    return [];
-  }
-
-  // タグ配列
-  const tag= [];
-
-  // キーワード検索
-  keywords.forEach((keyword) => {
-    // 正規表現検索
-    const result = body.search(new RegExp(keyword.re));
-    if (result > 0) {
-      console.log("Tag: " + keyword.name);
-      tag.push(keyword);
-    }
-  });
-
-  // タグ返却
-  return tag;
-};
-
-// 正規表現で抽出
-const extractionRegex = (body) => {
-  // 正規表現チェック
-  if (extractions.length === 0) {
-    return;
-  }
-
-  // 抽出配列
-  const text = [];
-
-  // 正規表現検索
-  extractions.forEach((extraction) => {
-    const matches = body.match(extraction.regex);
-    if (matches) {
-      matches.forEach((match) => {
-        text.push(match);
-      });
-    }
-  });
-
-  // 抽出配列返却
-  return text;
 };
 
 // メール取得実行
