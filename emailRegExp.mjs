@@ -16,22 +16,15 @@ export const emailRegExp = () => {
 
     console.log(`-----  Mail No.${index + 1}  -----`);
 
+    // キーワード検索
     searchKeyword(mail.trim()).forEach((tag) => {
       console.log("Tag: ", tag);
     });
 
-    // 抽出結果の取得
-    const allProjects = extractionRegex(mail.trim());
+    // キーワード抽出
+    const summary = extractionRegex(mail.trim());
 
-    // 案件単位
-    allProjects.forEach((project, pIndex) => {
-      let memo = `  --- Project ${pIndex + 1} ---\n`;
-      // 項目単位
-      project.forEach((item) => {
-        memo += `  ${item.name}: ${item.value}\n`;
-      });
-      console.log(memo);
-    });
+    console.log(summary.join("\n"));
   });
 };
 

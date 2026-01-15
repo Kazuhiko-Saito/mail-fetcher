@@ -1,6 +1,7 @@
 import POP3Client from "poplib";
 import PostalMime from "postal-mime";
 import { prisma } from "./lib/prisma.mjs";
+import { getReceivedDate } from "./lib/util.mjs";
 
 const FORCE_MODE = process.argv.includes("--force");
 
@@ -116,20 +117,8 @@ const storeMail = async (data) => {
   const email = await PostalMime.parse(data);
   const body = email.text || email.html || "";
 
-  // 必要項目チェック
-  if (
-    !email.messageId ||
-    !email.subject ||
-    !email.from?.address ||
-    !email.date ||
-    !body
-  ) {
-    console.log("必要情報がありません。登録をスキップします。");
-    return true;
-  }
-
   // 重複チェック
-  const existingEmail = await prisma.email.findUnique({
+  const existingEmail = await prisma.mail_daily.findUnique({
     where: {
       message_id: email.messageId,
     },
@@ -138,6 +127,21 @@ const storeMail = async (data) => {
   if (existingEmail) {
     console.log("すでに登録されています。");
     return false;
+  }
+
+  // 受信日時抽出
+  const received_at = await getReceivedDate(data);
+
+  // 必要項目チェック
+  if (
+    !email.messageId ||
+    !email.subject ||
+    !email.from?.address ||
+    !received_at ||
+    !body
+  ) {
+    console.log("必要情報がありません。登録をスキップします。");
+    return true;
   }
 
   // NULL文字除去
@@ -151,12 +155,12 @@ const storeMail = async (data) => {
   // DB登録
   try {
     // emailテーブルに登録
-    await prisma.email.create({
+    await prisma.mail_daily.create({
       data: {
         message_id: cleanMessageId,
         subject: cleanSubject,
         sender: cleanSender,
-        received_at: email.date ? new Date(email.date) : new Date(),
+        received_at: received_at,
         body: cleanBody,
       },
     });
@@ -164,11 +168,6 @@ const storeMail = async (data) => {
     console.error(e.message);
     throw e;
   }
-  // キーワード検索
-  const tag = searchKeyword(body);
-
-  // 正規表現で抽出
-  const text = extractionRegex(body);
 
   // 正常終了
   return true;

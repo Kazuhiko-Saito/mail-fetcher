@@ -13,7 +13,7 @@ datasource db {
   provider = "postgresql"
 }
 
-model email {
+model mail_daily {
   id          Int      @id @default(autoincrement())
   message_id  String   @unique
   subject     String
@@ -23,14 +23,44 @@ model email {
   created_at  DateTime @default(now())
 }
 
-model parsed_email {
+model mail_monthly {
   id          Int      @id @default(autoincrement())
   message_id  String   @unique
   subject     String
   sender      String
   received_at DateTime
   body        String   @db.Text
-  tags        String[]
+  tag         String[]
   summary     String   @db.Text
   created_at  DateTime @default(now())
+}
+
+model mail_selected {
+  id          Int      @id @default(autoincrement())
+  message_id  String   @unique
+  subject     String
+  sender      String
+  received_at DateTime
+  body        String   @db.Text
+  tag         String[]
+  summary     String   @db.Text
+  created_at  DateTime @default(now())
+}
+
+model mail_keyword {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  re         String   @db.Text
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model mail_extraction {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  re         String   @db.Text
+  num        Int[]
+  multi_line Boolean
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 }
