@@ -49,7 +49,7 @@ export const emailFetcher = async () => {
       try {
         const isStored = await storeMail(data);
         if (!isStored) {
-          // It's a duplicate
+          // 登録済みメールの場合
           if (FORCE_MODE) {
             console.log("重複していますが、全件処理モードのため続行します。");
           } else {

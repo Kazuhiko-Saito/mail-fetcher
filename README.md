@@ -56,10 +56,18 @@ npx tsx emailStore.mjs
 
 その際の検証用メール本文は `mail` ディレクトリに格納されたファイルを参照する。
 
-タグ付け用キーワード定義とサマリー抽出用キーワード定義は `lib/constant.js` に格納している。
+タグ付け用キーワード定義とサマリー抽出用キーワード定義はそれぞれテーブルに格納している。
 
 ```bash
 npx tsx emailRegExp.mjs
+```
+
+### importKeyword.mjs
+
+`lib/constant.js` に定義されている検索用キーワードと抽出用キーワードをテーブルにインポートする。
+
+```bash
+npx tsx importKeyword.mjs
 ```
 
 ## テーブル定義
