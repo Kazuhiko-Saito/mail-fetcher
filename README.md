@@ -2,6 +2,18 @@
 
 ## 準備
 
+1. リポジトリをクローン
+
+    ```bash
+    git clone https://github.com/Kazuhiko-Saito/mail-fetcher.git
+    ```
+
+1. クローンしたディレクトリに移動
+
+    ```bash
+    cd mail-fetcher
+    ```
+
 1. 接続設定定義
 
     `.env` を作成し、接続設定を記述する。
@@ -11,7 +23,7 @@
     MAIL_PASSWORD=＜メールパスワード＞
     MAIL_SERVERNAME=＜POP3サーバーアドレス＞
     MAIL_SERVERPORT=＜POP3サーバーポート番号＞
-    DATABASE_URL=＜PrismaDB接続先URL＞
+    DATABASE_URL=＜Prisma DB接続先URL＞
     ```
 
 1. Nodeモジュールインストール
