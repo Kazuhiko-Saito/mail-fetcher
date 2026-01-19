@@ -23,8 +23,7 @@ export const emailRegExp = () => {
 
     // キーワード抽出
     const summary = extractionRegex(mail.trim());
-
-    console.log(summary.join("\n"));
+    console.log(summary.join("\r\n"));
   });
 };
 
