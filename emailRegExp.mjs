@@ -4,27 +4,39 @@ import { searchKeyword, extractionRegex } from "./lib/util.mjs";
 
 const mailPath = path.join(import.meta.dirname, "mail");
 
-export const emailRegExp = () => {
+/**
+ * 'mail'ディレクトリ内の各メールファイルを読み込み、
+ * キーワード検索と情報抽出を実行してコンソールに出力する
+ * @returns {void}
+ */
+export const emailRegExp = async () => {
   const files = fs.readdirSync(mailPath);
 
-  files.forEach((file, index) => {
+  let index = 0;
+  for (const file of files) {
     const filePath = path.join(mailPath, file);
 
-    if (!fs.statSync(filePath).isFile()) return;
+    if (!fs.statSync(filePath).isFile()) {
+      index++;
+      continue;
+    }
 
     const mail = fs.readFileSync(filePath, "utf-8");
 
     console.log(`-----  Mail No.${index + 1}  -----`);
 
     // キーワード検索
-    searchKeyword(mail.trim()).forEach((tag) => {
+    const tags = await searchKeyword(mail.trim());
+    tags.forEach((tag) => {
       console.log("Tag: ", tag);
     });
 
     // キーワード抽出
-    const summary = extractionRegex(mail.trim());
+    const summary = await extractionRegex(mail.trim());
     console.log(summary.join("\r\n"));
-  });
+
+    index++;
+  }
 };
 
 // 実行

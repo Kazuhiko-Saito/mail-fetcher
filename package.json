@@ -16,9 +16,9 @@
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "dotenv": "^17.2.3",
+    "node-pop3": "^0.11.0",
     "pg": "^8.16.3",
-    "poplib": "^0.1.7",
     "postal-mime": "^2.7.2",
-    "prisma": "^7.2.0"
+    "prisma": "^6.19.2"
   }
 }

@@ -1,8 +1,11 @@
-import { join } from "@prisma/client/runtime/client";
-import { TransactionIsolationLevel } from "./generated/prisma/internal/prismaNamespace";
 import { prisma } from "./lib/prisma.mjs";
 import { searchKeyword, extractionRegex } from "./lib/util.mjs";
 
+/**
+ * mail_dailyテーブルからメールを取得し、キーワード検索と情報抽出を行った後、
+ * 結果をmail_monthlyテーブルに保存し、元のレコードを削除する
+ * @returns {Promise<boolean>} 処理が正常に完了した場合はtrueを返す
+ */
 export const emailStore = async () => {
   try {
     // メール取得
@@ -23,37 +26,37 @@ export const emailStore = async () => {
     // メール保存
     for (const mail of mails) {
       //
-      console.log("Message ID: ", mail.message_id);
+      console.log("Message-ID: ", mail.message_id);
 
       // キーワード検索
-      const tag = searchKeyword(mail.body);
+      const tag = await searchKeyword(mail.body);
 
       // キーワード抽出
-      const summary = extractionRegex(mail.body);
+      const summary = await extractionRegex(mail.body);
 
       console.log(summary.join("\n"));
 
-      // await prisma.$transaction(async (tx) => {
-      //   // DB登録
-      //   await tx.mail_monthly.create({
-      //     data: {
-      //       message_id: mail.message_id,
-      //       subject: mail.subject,
-      //       sender: mail.sender,
-      //       received_at: mail.received_at,
-      //       body: mail.body,
-      //       tag: tag,
-      //       summary: summary,
-      //     },
-      //   });
+      await prisma.$transaction(async (tx) => {
+        // DB登録
+        await tx.mail_monthly.create({
+          data: {
+            message_id: mail.message_id,
+            subject: mail.subject,
+            sender: mail.sender,
+            received_at: mail.received_at,
+            body: mail.body,
+            tag: tag,
+            summary: summary.join("\r\n"),
+          },
+        });
 
-      //   // DB削除
-      //   await tx.mail_daily.delete({
-      //     where: {
-      //       id: mail.id,
-      //     },
-      //   });
-      // });
+        // DB削除
+        await tx.mail_daily.delete({
+          where: {
+            id: mail.id,
+          },
+        });
+      });
     }
   } catch (e) {
     console.error(e.message);

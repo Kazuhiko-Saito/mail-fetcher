@@ -1,115 +1,74 @@
-import POP3Client from "poplib";
+import Pop3Command from "node-pop3";
 import PostalMime from "postal-mime";
 import { prisma } from "./lib/prisma.mjs";
 import { getReceivedDate } from "./lib/util.mjs";
 
 const FORCE_MODE = process.argv.includes("--force");
 
-const mailSetting = {
-  username: process.env.MAIL_USERNAME,
-  password: process.env.MAIL_PASSWORD,
-  server: {
-    name: process.env.MAIL_SERVERNAME,
-    port: process.env.MAIL_SERVERPORT,
-  },
-};
+/**
+ * POP3サーバーに接続し、新しいメールを取得してDBに保存する
+ * @returns {Promise<void>} 処理が完了したときに解決されるPromise
+ */
+export const emailFetcher = async () => {
+  const mailSetting = {
+    user: process.env.MAIL_USERNAME,
+    password: process.env.MAIL_PASSWORD,
+    host: process.env.MAIL_SERVERNAME,
+    port: 110,
+    stls: true,
+    tlsOptions: {
+      servername: "red.shared-server.net",
+    },
+  };
 
-let currentMsgNum = 1;
-let totalMsgCount = 0;
+  const client = new Pop3Command(mailSetting);
 
-export const emailFetcher = () => {
-  return new Promise((resolve, reject) => {
-    const client = new POP3Client(
-      mailSetting.server.port,
-      mailSetting.server.name,
-      {
-        tlserrs: false,
-        enabletls: false,
-        debug: false,
-      }
-    );
+  try {
+    await client.connect();
+    console.log("CONNECT success");
 
-    client.on("error", (err) => {
-      console.error("POP3 client error:", err);
-      client.quit();
-      reject(err);
-    });
+    // モダンなSASL AUTH PLAIN認証を使用
+    const authString = `\0${mailSetting.user}\0${mailSetting.password}`;
+    const base64Auth = Buffer.from(authString).toString("base64");
+    await client.command("AUTH", "PLAIN", base64Auth);
+    console.log("Authentication (AUTH PLAIN) successful");
 
-    client.on("connect", () => {
-      console.log("CONNECT success");
-      client.login(mailSetting.username, mailSetting.password);
-    });
+    const [statInfo] = await client.command("STAT");
+    console.log(`STAT response: ${statInfo}`);
 
-    client.on("login", (status, rawdata) => {
-      if (status) {
-        console.log("LOGIN/PASS success");
-        client.list();
-      } else {
-        console.log("LOGIN/PASS failed");
-        client.quit();
-        reject(new Error("LOGIN/PASS failed"));
-      }
-    });
+    const msglist = await client.UIDL();
+    if (msglist.length === 0) {
+      console.log("UIDL reports 0 messages.");
+      return;
+    }
+    console.log(`UIDL success with ${msglist.length} element(s)`);
 
-    client.on("list", (status, msgcount, msgnumber, data, rawdata) => {
-      if (!status) {
-        console.log("LIST failed");
-        client.quit();
-        reject(new Error("LIST failed"));
-      } else {
-        console.log("LIST success with " + msgcount + " element(s)");
-        totalMsgCount = msgcount;
-        if (msgcount > 0) {
-          currentMsgNum = msgcount;
-          client.retr(currentMsgNum);
-        } else {
-          client.quit();
-        }
-      }
-    });
-
-    client.on("retr", async (status, msgnumber, data, rawdata) => {
-      currentMsgNum = msgnumber;
-      if (!status) {
-        console.log("RETR failed for msgnumber " + msgnumber);
-        client.quit();
-        reject(new Error(`RETR failed for msgnumber ${msgnumber}`));
-      } else {
-        console.log("RETR success for msgnumber " + msgnumber);
-        try {
-          const isStored = await storeMail(data);
-          if (isStored || FORCE_MODE) {
-            if (!isStored) {
-              console.log("重複していますが、全件処理モードのため続行します。");
-            }
-            if (currentMsgNum > 1) {
-              currentMsgNum--;
-              client.retr(currentMsgNum);
-            } else {
-              client.quit();
-            }
+    for (let i = msglist.length; i > 0; i--) {
+      console.log("RETR start for msgnumber " + i);
+      const data = await client.RETR(i);
+      try {
+        const isStored = await storeMail(data);
+        if (!isStored) {
+          // It's a duplicate
+          if (FORCE_MODE) {
+            console.log("重複していますが、全件処理モードのため続行します。");
           } else {
             console.log("重複のため処理を終了します。");
-            client.quit();
+            break;
           }
-        } catch (e) {
-          console.error("Error during storeMail:", e);
-          client.quit();
-          reject(e);
         }
+      } catch (e) {
+        console.error("Error during storeMail:", e);
+        throw e;
       }
-    });
-
-    client.on("quit", (status, rawdata) => {
-      if (status) {
-        console.log("QUIT success");
-        resolve();
-      } else {
-        console.log("QUIT failed");
-        reject(new Error("QUIT failed"));
-      }
-    });
-  });
+    }
+  } catch (err) {
+    console.error("POP3 client error:", err);
+    throw err;
+  } finally {
+    await client.QUIT();
+    console.log("QUIT success");
+  }
 };
 
 const storeMail = async (data) => {
@@ -174,12 +133,16 @@ const storeMail = async (data) => {
 };
 
 // メール取得実行
-emailFetcher()
-  .then(() => {
+async function main() {
+  try {
+    await emailFetcher();
     console.log("メール取得完了！");
-    process.exit(0);
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error("致命的なエラー:", err);
     process.exit(1);
-  });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+main();
