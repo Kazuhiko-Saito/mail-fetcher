@@ -18,12 +18,10 @@ export const emailRegExp = async () => {
     const filePath = path.join(mailPath, file);
 
     if (!fs.statSync(filePath).isFile()) {
-      index++;
       continue;
     }
 
     if (path.extname(file) !== ".txt") {
-      index++;
       continue;
     }
 
