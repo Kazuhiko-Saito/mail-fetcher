@@ -10,8 +10,9 @@
     "mail:fetch": "npx tsx emailFetcher.mjs",
     "mail:fetch_all": "npx tsx emailFetcher.mjs --force",
     "mail:store": "npx tsx emailStore.mjs",
-    "keyword:test": "npx tsx keywordTest.mjs",
-    "keyword:import": "npx tsx keywordImport.mjs"
+    "keyword:import": "npx tsx keywordImport.mjs",
+    "keyword:test_db": "npx tsx keywordTest.mjs",
+    "keyword:test_constant": "npx tsx keywordTest.mjs --constant"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^6.19.2",

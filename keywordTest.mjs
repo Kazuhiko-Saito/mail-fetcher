@@ -2,8 +2,8 @@ import fs from "fs";
 import path from "path";
 import { searchKeyword, extractionRegex } from "./lib/util.mjs";
 
-const constantFlag = true;
-const mailPath = path.join(import.meta.dirname, "mail");
+const CONSTANT_FLAG = process.argv.includes("--constant");
+const MAIL_PATH = path.join(import.meta.dirname, "mail");
 
 /**
  * 'mail'ディレクトリ内の各メールファイル（*.txt）を読み込み、
@@ -11,11 +11,11 @@ const mailPath = path.join(import.meta.dirname, "mail");
  * @returns {void}
  */
 export const emailRegExp = async () => {
-  const files = fs.readdirSync(mailPath);
+  const files = fs.readdirSync(MAIL_PATH);
 
   let index = 0;
   for (const file of files) {
-    const filePath = path.join(mailPath, file);
+    const filePath = path.join(MAIL_PATH, file);
 
     if (!fs.statSync(filePath).isFile()) {
       continue;
@@ -30,13 +30,13 @@ export const emailRegExp = async () => {
     console.log(`-----  Mail No.${index + 1}  -----`);
 
     // キーワード検索
-    const tags = await searchKeyword(mail.trim(), constantFlag);
+    const tags = await searchKeyword(mail.trim(), CONSTANT_FLAG);
     tags.forEach((tag) => {
       console.log("Tag: ", tag);
     });
 
     // キーワード抽出
-    const summary = await extractionRegex(mail.trim(), constantFlag);
+    const summary = await extractionRegex(mail.trim(), CONSTANT_FLAG);
     console.log(summary.join("\r\n"));
 
     index++;

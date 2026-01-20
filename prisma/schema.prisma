@@ -15,40 +15,40 @@ datasource db {
 }
 
 model mail_daily {
-  id          Int      @id @default(autoincrement())
-  message_id  String   @unique
-  subject     String
-  sender      String
-  date        DateTime
-  received_at DateTime
-  body        String   @db.Text
-  created_at  DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  message_id    String   @unique
+  subject       String
+  sender        String
+  date_sent     DateTime
+  date_received DateTime
+  body          String   @db.Text
+  created_at    DateTime @default(now())
 }
 
 model mail_monthly {
-  id          Int      @id @default(autoincrement())
-  message_id  String   @unique
-  subject     String
-  sender      String
-  date        DateTime
-  received_at DateTime
-  body        String   @db.Text
-  tag         String[]
-  summary     String   @db.Text
-  created_at  DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  message_id    String   @unique
+  subject       String
+  sender        String
+  date_sent     DateTime
+  date_received DateTime
+  body          String   @db.Text
+  tag           String[]
+  summary       String   @db.Text
+  created_at    DateTime @default(now())
 }
 
 model mail_selected {
-  id          Int      @id @default(autoincrement())
-  message_id  String   @unique
-  subject     String
-  sender      String
-  date        DateTime
-  received_at DateTime
-  body        String   @db.Text
-  tag         String[]
-  summary     String   @db.Text
-  created_at  DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  message_id    String   @unique
+  subject       String
+  sender        String
+  date_sent     DateTime
+  date_received DateTime
+  body          String   @db.Text
+  tag           String[]
+  summary       String   @db.Text
+  created_at    DateTime @default(now())
 }
 
 model mail_keyword {

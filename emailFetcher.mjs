@@ -95,7 +95,7 @@ const storeMail = async (data) => {
   }
 
   // 受信日時抽出
-  const received_at = await getReceivedDate(data);
+  const date_received = await getReceivedDate(data);
 
   // 必要項目チェック
   if (
@@ -103,7 +103,7 @@ const storeMail = async (data) => {
     !email.subject ||
     !email.from?.address ||
     !email.date ||
-    !received_at ||
+    !date_received ||
     !body
   ) {
     console.log("必要情報がありません。登録をスキップします。");
@@ -127,7 +127,7 @@ const storeMail = async (data) => {
         subject: cleanSubject,
         sender: cleanSender,
         date: new Date(email.date),
-        received_at: received_at,
+        received_at: date_received,
         body: cleanBody,
       },
     });

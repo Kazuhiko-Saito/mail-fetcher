@@ -100,13 +100,21 @@ npm run mail:store
 検索用キーワード定義と抽出用キーワード定義は、それぞれ `lib/constant.js` に定数で定義している。
 
 ```bash
-npx tsx emailRegExp.mjs
+# DB上のキーワードテスト
+npx tsx keywordTest.mjs
+
+# 定数のキーワードテスト
+npx tsx keywordTest.mjs --constant
 ```
 
 or
 
 ```bash
-npm run keyword:test
+# DB上のキーワードテスト
+npm run keyword:test_db
+
+# 定数のキーワードテスト
+npm run keyword:test_constant
 ```
 
 ### キーワードインポート処理
@@ -134,8 +142,8 @@ CREATE TABLE "mail_daily" (
     "message_id" TEXT NOT NULL,
     "subject" TEXT NOT NULL,
     "sender" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "received_at" TIMESTAMP(3) NOT NULL,
+    "date_sent" TIMESTAMP(3) NOT NULL,
+    "date_received" TIMESTAMP(3) NOT NULL,
     "body" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -154,8 +162,8 @@ CREATE TABLE "mail_monthly" (
     "message_id" TEXT NOT NULL,
     "subject" TEXT NOT NULL,
     "sender" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "received_at" TIMESTAMP(3) NOT NULL,
+    "date_sent" TIMESTAMP(3) NOT NULL,
+    "date_received" TIMESTAMP(3) NOT NULL,
     "body" TEXT NOT NULL,
     "tag" TEXT[],
     "summary" TEXT NOT NULL,
@@ -176,8 +184,8 @@ CREATE TABLE "mail_selected" (
     "message_id" TEXT NOT NULL,
     "subject" TEXT NOT NULL,
     "sender" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "received_at" TIMESTAMP(3) NOT NULL,
+    "date_sent" TIMESTAMP(3) NOT NULL,
+    "date_received" TIMESTAMP(3) NOT NULL,
     "body" TEXT NOT NULL,
     "tag" TEXT[],
     "summary" TEXT NOT NULL,
