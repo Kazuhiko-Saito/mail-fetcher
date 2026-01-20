@@ -1,5 +1,14 @@
 # メールフェッチプログラム
 
+## 技術スタック
+
+- JavaScript
+    - Node.js
+        - prisma
+        - node-pop3
+        - postal-mime
+- PostgreSQL
+
 ## 準備
 
 1. リポジトリをクローン
@@ -17,6 +26,7 @@
 1. 接続設定定義
 
     `.env` を作成し、接続設定を記述する。
+    `.env.sample` に設定例があるので参照。
 
     ```
     MAIL_USERNAME=＜メールアカウント＞

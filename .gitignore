@@ -3,6 +3,9 @@ node_modules
 /generated/prisma
 
 .env
+.env.local
+.env.develop
+.env.production
 
 /mail
 /doc
