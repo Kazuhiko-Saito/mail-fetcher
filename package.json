@@ -12,7 +12,9 @@
     "mail:store": "npx tsx emailStore.mjs",
     "keyword:import": "npx tsx keywordImport.mjs",
     "keyword:test_db": "npx tsx keywordTest.mjs",
-    "keyword:test_constant": "npx tsx keywordTest.mjs --constant"
+    "keyword:test_constant": "npx tsx keywordTest.mjs --constant",
+    "lint": "npx eslint . --ext .js,.mjs,.ts --fix",
+    "format": "npx prettier --write ."
   },
   "dependencies": {
     "@prisma/adapter-pg": "^6.19.2",

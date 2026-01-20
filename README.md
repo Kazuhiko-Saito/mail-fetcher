@@ -3,56 +3,56 @@
 ## 技術スタック
 
 - JavaScript
-    - Node.js
-        - prisma
-        - node-pop3
-        - postal-mime
+  - Node.js
+    - prisma
+    - node-pop3
+    - postal-mime
 - PostgreSQL
 
 ## 準備
 
 1. リポジトリをクローン
 
-    ```bash
-    git clone https://github.com/Kazuhiko-Saito/mail-fetcher.git
-    ```
+   ```bash
+   git clone https://github.com/Kazuhiko-Saito/mail-fetcher.git
+   ```
 
 1. クローンしたディレクトリに移動
 
-    ```bash
-    cd mail-fetcher
-    ```
+   ```bash
+   cd mail-fetcher
+   ```
 
 1. 接続設定定義
 
-    `.env` を作成し、`.env.sample` に設定例があるので参照して接続設定を記述する。
+   `.env` を作成し、`.env.sample` に設定例があるので参照して接続設定を記述する。
 
-    ```
-    MAIL_USERNAME=＜メールアカウント＞
-    MAIL_PASSWORD=＜メールパスワード＞
-    MAIL_SERVERNAME=＜POP3サーバーアドレス＞
-    MAIL_SERVERPORT=＜POP3サーバーポート番号＞
-    MAIL_TLS_SERVERNAME=＜TLSオプション用サーバーアドレス＞
-    DATABASE_URL=＜Prisma DB接続先URL＞
-    ```
+   ```
+   MAIL_USERNAME=＜メールアカウント＞
+   MAIL_PASSWORD=＜メールパスワード＞
+   MAIL_SERVERNAME=＜POP3サーバーアドレス＞
+   MAIL_SERVERPORT=＜POP3サーバーポート番号＞
+   MAIL_TLS_SERVERNAME=＜TLSオプション用サーバーアドレス＞
+   DATABASE_URL=＜Prisma DB接続先URL＞
+   ```
 
 1. Nodeモジュールインストール
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 1. Prisma Client生成
 
-    ```bash
-    npx prisma generate
-    ```
+   ```bash
+   npx prisma generate
+   ```
 
 1. DBマイグレーション実行
 
-    ```bash
-    npx prisma migrate dev
-    ```
+   ```bash
+   npx prisma migrate dev
+   ```
 
 ## 実行
 
@@ -67,6 +67,7 @@ npx tsx emailFetcher.mjs
 # 全件実行
 npx tsx emailFetcher.mjs --force
 ```
+
 or
 
 ```bash
@@ -95,7 +96,7 @@ npm run mail:store
 
 タグ付けとサマリー抽出のテスト用プログラムで、[`lib/util.mjs`](./lib/util.mjs) の `searchKeyword` 関数と `extractionRegex` 関数を実行する。
 
-その際の検証用メール本文は [`mail`](./mail/) ディレクトリに格納されたテキストファイル（*.txt）を参照する。
+その際の検証用メール本文は [`mail`](./mail/) ディレクトリに格納されたテキストファイル（\*.txt）を参照する。
 
 検索用キーワード定義と抽出用キーワード定義は、それぞれ [`lib/constant.js`](./lib/constant.js) に定数で定義している。
 
@@ -199,7 +200,7 @@ CREATE UNIQUE INDEX "mail_selected_message_id_key" ON "mail_selected"("message_i
 
 ### タグ付けキーワードテーブル
 
-```SQL  
+```SQL
 -- CreateTable
 CREATE TABLE "mail_keyword" (
     "id" SERIAL NOT NULL,
