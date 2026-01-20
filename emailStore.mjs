@@ -48,7 +48,7 @@ export const emailStore = async () => {
             date_received: mail.date_received,
             body: mail.body,
             tag: tag,
-            summary: summary.join("\r\n"),
+            summary: summary.join("\n"),
           },
         });
 
