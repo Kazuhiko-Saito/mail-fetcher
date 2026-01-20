@@ -2,15 +2,16 @@
   "name": "mail-fetcher",
   "version": "1.0.0",
   "description": "",
-  "license": "ISC",
-  "author": "",
+  "license": "",
+  "author": "Kazuhiko Saito",
   "type": "module",
-  "main": "emailFetcher.js",
+  "main": "emailFetcher.mjs",
   "scripts": {
-    "fetch:exec": "npx tsx emailFetcher.mjs",
-    "fetch:exec_all": "npx tsx emailFetcher.mjs --force",
-    "store:exec": "npx tsx emailStore.mjs",
-    "regex:test": "npx tsx emailRegExp.mjs"
+    "mail:fetch": "npx tsx emailFetcher.mjs",
+    "mail:fetch_all": "npx tsx emailFetcher.mjs --force",
+    "mail:store": "npx tsx emailStore.mjs",
+    "keyword:test": "npx tsx emailRegExp.mjs",
+    "keyword:import": "npx tsx emailImport.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",

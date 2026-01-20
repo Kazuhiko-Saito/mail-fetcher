@@ -46,15 +46,28 @@
 
 ## 実行
 
-### emailFetcher.mjs
+### メールフェッチ処理
 
 POP3サーバーよりメールを取得して、デイリーメールテーブルに保存する。
 
 ```bash
+# 通常実行
 npx tsx emailFetcher.mjs
+
+# 全件実行
+npx tsx emailFetcher.mjs --force
+```
+or
+
+```bash
+# 通常実行
+npm run mail:fetch
+
+# 全件実行
+npm run mail:fetch_all
 ```
 
-### emailStore.mjs
+### メールストア処理
 
 デイリーメールテーブルのメールを取得して、DBに保存されたキーワードでタグ付けとサマリー抽出を行い、マンスリーメールテーブルに保存する。
 
@@ -62,7 +75,13 @@ npx tsx emailFetcher.mjs
 npx tsx emailStore.mjs
 ```
 
-### emailRegExp.mjs
+or
+
+```bash
+npm run mail:store
+```
+
+### キーワードテスト処理
 
 タグ付けとサマリー抽出のテスト用プログラムで、`lib/util.mjs` の `searchKeyword` 関数と `extractionRegex` 関数を実行する。
 
@@ -74,12 +93,24 @@ npx tsx emailStore.mjs
 npx tsx emailRegExp.mjs
 ```
 
-### importKeyword.mjs
+or
+
+```bash
+npm run keyword:test
+```
+
+### キーワードインポート処理
 
 `lib/constant.js` に定義されている検索用キーワードと抽出用キーワードをテーブルにインポートする。
 
 ```bash
 npx tsx importKeyword.mjs
+```
+
+or
+
+```bash
+npm run keyword:import
 ```
 
 ## テーブル定義
