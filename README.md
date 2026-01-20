@@ -25,7 +25,7 @@
 
 1. 接続設定定義
 
-   `.env` を作成し、`.env.sample` に設定例があるので参照して接続設定を記述する。
+   `.env` を作成し、[`.env.sample`](./.env.sample) に設定例があるので参照して接続設定を記述する。
 
    ```
    MAIL_USERNAME=＜メールアカウント＞
@@ -97,9 +97,9 @@ npm run mail:store
 
 ### キーワードテスト処理
 
-タグ付けとサマリー抽出のテスト用プログラムで、[`lib/util.mjs`](./src/lib/util.mjs) の `searchKeyword` 関数と `extractionRegex` 関数を実行する。  
-その際の検証用メール本文は [`mail`](./mail/) ディレクトリに格納されたテキストファイル（\*.txt）を参照する。  
-検索用キーワード定義と抽出用キーワード定義は、それぞれ [`lib/constant.js`](./src/lib/constant.js) に定数で定義している。
+タグ付けとサマリー抽出のテスト用プログラムで、[`src/lib/util.mjs`](./src/lib/util.mjs) の `searchKeyword` 関数と `extractionRegex` 関数を実行する。  
+その際のテスト用メール本文は [`mail`](./mail/) ディレクトリに格納されたテキストファイル（\*.txt）を参照する。  
+検索用キーワード定義と抽出用キーワード定義は、それぞれDB上あるいは [`src/lib/constant.js`](./src/lib/constant.js) に定数で定義している。
 
 ```bash
 # DB上のキーワードテスト
@@ -121,7 +121,7 @@ npm run keyword:test_constant
 
 ### キーワードインポート処理
 
-[`lib/constant.js`](./src/lib/constant.js) に定義されている検索用キーワードと抽出用キーワードをテーブルにインポートする。
+[`src/lib/constant.js`](./src/lib/constant.js) に定義されている検索用キーワードと抽出用キーワードをテーブルにインポートする。
 
 ```bash
 npx tsx src/keywordImport.mjs

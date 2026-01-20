@@ -8,6 +8,4 @@ node_modules
 .env.production
 
 /mail
-/doc
 
-/lib/generated/prisma
