@@ -33,6 +33,7 @@
     MAIL_PASSWORD=＜メールパスワード＞
     MAIL_SERVERNAME=＜POP3サーバーアドレス＞
     MAIL_SERVERPORT=＜POP3サーバーポート番号＞
+    MAIL_TLS_SERVERNAME=＜TLSオプション用サーバーアドレス＞
     DATABASE_URL=＜Prisma DB接続先URL＞
     ```
 
