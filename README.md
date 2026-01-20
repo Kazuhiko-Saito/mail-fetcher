@@ -93,11 +93,11 @@ npm run mail:store
 
 ### キーワードテスト処理
 
-タグ付けとサマリー抽出のテスト用プログラムで、`lib/util.mjs` の `searchKeyword` 関数と `extractionRegex` 関数を実行する。
+タグ付けとサマリー抽出のテスト用プログラムで、[`lib/util.mjs`](./lib/util.mjs) の `searchKeyword` 関数と `extractionRegex` 関数を実行する。
 
-その際の検証用メール本文は `mail` ディレクトリに格納されたテキストファイル（*.txt）を参照する。
+その際の検証用メール本文は [`mail`](./mail/) ディレクトリに格納されたテキストファイル（*.txt）を参照する。
 
-検索用キーワード定義と抽出用キーワード定義は、それぞれ `lib/constant.js` に定数で定義している。
+検索用キーワード定義と抽出用キーワード定義は、それぞれ [`lib/constant.js`](./lib/constant.js) に定数で定義している。
 
 ```bash
 # DB上のキーワードテスト
