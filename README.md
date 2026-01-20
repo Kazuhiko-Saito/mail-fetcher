@@ -56,7 +56,7 @@ npx tsx emailFetcher.mjs
 
 ### emailStore.mjs
 
-デイリーメールテーブルのメールを取得して、タグ付けとサマリー抽出を行い、マンスリーメールテーブルに保存する。
+デイリーメールテーブルのメールを取得して、DBに保存されたキーワードでタグ付けとサマリー抽出を行い、マンスリーメールテーブルに保存する。
 
 ```bash
 npx tsx emailStore.mjs
@@ -66,9 +66,9 @@ npx tsx emailStore.mjs
 
 タグ付けとサマリー抽出のテスト用プログラムで、`lib/util.mjs` の `searchKeyword` 関数と `extractionRegex` 関数を実行する。
 
-その際の検証用メール本文は `mail` ディレクトリに格納されたファイルを参照する。
+その際の検証用メール本文は `mail` ディレクトリに格納されたテキストファイル（*.txt）を参照する。
 
-タグ付け用キーワード定義とサマリー抽出用キーワード定義はそれぞれテーブルに格納している。
+検索用キーワード定義と抽出用キーワード定義は、それぞれ `lib/constant.js` に定数で定義している。
 
 ```bash
 npx tsx emailRegExp.mjs

@@ -71,6 +71,12 @@ export const emailFetcher = async () => {
   }
 };
 
+/**
+ * メールデータを解析し、DBに保存する
+ * 重複チェックを行い、必要な情報が揃っているか確認した上でDBに登録する
+ * @param {string} data - メールの生データ
+ * @returns {Promise<boolean>} メールが正常に保存された場合はtrue、重複している場合はfalseを返す
+ */
 const storeMail = async (data) => {
   // メールパースと本文抽出
   const email = await PostalMime.parse(data);
@@ -132,7 +138,10 @@ const storeMail = async (data) => {
   return true;
 };
 
-// メール取得実行
+/**
+ * メール取得処理のメイン関数
+ * emailFetcherを実行し、成功または失敗のメッセージを出力する
+ */
 async function main() {
   try {
     await emailFetcher();

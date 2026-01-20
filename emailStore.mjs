@@ -37,7 +37,7 @@ export const emailStore = async () => {
       console.log(summary.join("\n"));
 
       await prisma.$transaction(async (tx) => {
-        // DB登録
+        // DBへ登録
         await tx.mail_monthly.create({
           data: {
             message_id: mail.message_id,
@@ -50,7 +50,7 @@ export const emailStore = async () => {
           },
         });
 
-        // DB削除
+        // DBから削除
         await tx.mail_daily.delete({
           where: {
             id: mail.id,
