@@ -3,7 +3,7 @@ import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
-export default tseslint.config(
+export default [
   {
     ignores: ["generated/**/*", "node_modules/**/*"],
   },
@@ -16,5 +16,5 @@ export default tseslint.config(
         ...globals.node,
       },
     },
-  }
-);
+  },
+];
