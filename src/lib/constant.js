@@ -93,7 +93,7 @@ export const keywords = [
   },
   {
     name: "Transact-SQL",
-    re: /(T\-|Transact\-)SQL/gim,
+    re: /(T-|Transact-)SQL/gim,
   },
   {
     name: "DB2",

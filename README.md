@@ -62,10 +62,10 @@ POP3サーバーよりメールを取得して、デイリーメールテーブ�
 
 ```bash
 # 通常実行
-npx tsx emailFetcher.mjs
+npx tsx src/emailFetcher.mjs
 
 # 全件実行
-npx tsx emailFetcher.mjs --force
+npx tsx src/emailFetcher.mjs --force
 ```
 
 or
@@ -83,7 +83,7 @@ npm run mail:fetch_all
 デイリーメールテーブルのメールを取得して、DBに保存されたキーワードでタグ付けとサマリー抽出を行い、マンスリーメールテーブルに保存する。
 
 ```bash
-npx tsx emailStore.mjs
+npx tsx src/emailStore.mjs
 ```
 
 or
@@ -102,10 +102,10 @@ npm run mail:store
 
 ```bash
 # DB上のキーワードテスト
-npx tsx keywordTest.mjs
+npx tsx src/keywordTest.mjs
 
 # 定数のキーワードテスト
-npx tsx keywordTest.mjs --constant
+npx tsx src/keywordTest.mjs --constant
 ```
 
 or
@@ -123,7 +123,7 @@ npm run keyword:test_constant
 `lib/constant.js` に定義されている検索用キーワードと抽出用キーワードをテーブルにインポートする。
 
 ```bash
-npx tsx importKeyword.mjs
+npx tsx src/keywordImport.mjs
 ```
 
 or

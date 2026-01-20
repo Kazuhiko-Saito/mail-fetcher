@@ -79,17 +79,17 @@ export const emailFetcher = async () => {
  */
 const storeMail = async (data) => {
   // メールパースと本文抽出
-  const email = await PostalMime.parse(data);
-  const body = email.text || email.html || "";
+  const mail = await PostalMime.parse(data);
+  const body = mail.text || mail.html || "";
 
   // 重複チェック
-  const existingEmail = await prisma.mail_daily.findUnique({
+  const existingMail = await prisma.mail_daily.findUnique({
     where: {
-      message_id: email.messageId,
+      message_id: mail.messageId,
     },
   });
 
-  if (existingEmail) {
+  if (existingMail) {
     console.log("すでに登録されています。");
     return false;
   }
@@ -99,10 +99,10 @@ const storeMail = async (data) => {
 
   // 必要項目チェック
   if (
-    !email.messageId ||
-    !email.subject ||
-    !email.from?.address ||
-    !email.date ||
+    !mail.messageId ||
+    !mail.subject ||
+    !mail.from?.address ||
+    !mail.date ||
     !date_received ||
     !body
   ) {
@@ -111,12 +111,15 @@ const storeMail = async (data) => {
   }
 
   // NULL文字除去
-  const cleanMessageId = (email.messageId || "").replace(/\x00/g, "");
-  const cleanSubject = (email.subject || "").replace(/\x00/g, "");
-  const cleanSender = `${email.from?.name || ""} <${
-    email.from?.address || ""
-  }>`.replace(/\x00/g, "");
-  const cleanBody = (body || "").replace(/\x00/g, "");
+  const cleanMessageId = (mail.messageId || "").replaceAll("\0", "");
+  const cleanSubject = (mail.subject || "").replaceAll("\0", "");
+  const cleanSender =
+    `${mail.from?.name || ""} <${mail.from?.address || ""}>`.replaceAll(
+      "\0",
+      ""
+    );
+  const cleanDate = (mail.date || "").replaceAll("\0", "");
+  const cleanBody = (body || "").replaceAll("\0", "");
 
   // DB登録
   try {
@@ -126,7 +129,7 @@ const storeMail = async (data) => {
         message_id: cleanMessageId,
         subject: cleanSubject,
         sender: cleanSender,
-        date: new Date(email.date),
+        date: new Date(cleanDate),
         received_at: date_received,
         body: cleanBody,
       },

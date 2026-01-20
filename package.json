@@ -7,14 +7,14 @@
   "type": "module",
   "main": "emailFetcher.mjs",
   "scripts": {
-    "mail:fetch": "npx tsx emailFetcher.mjs",
-    "mail:fetch_all": "npx tsx emailFetcher.mjs --force",
-    "mail:store": "npx tsx emailStore.mjs",
-    "keyword:import": "npx tsx keywordImport.mjs",
-    "keyword:test_db": "npx tsx keywordTest.mjs",
-    "keyword:test_constant": "npx tsx keywordTest.mjs --constant",
-    "lint": "npx eslint . --ext .js,.mjs,.ts --fix",
-    "format": "npx prettier --write ."
+    "mail:fetch": "npx tsx src/emailFetcher.mjs",
+    "mail:fetch_all": "npx tsx src/emailFetcher.mjs --force",
+    "mail:store": "npx tsx src/emailStore.mjs",
+    "keyword:import": "npx tsx src/importKeyword.mjs",
+    "keyword:test_db": "npx tsx src/keywordTest.mjs",
+    "keyword:test_constant": "npx tsx src/keywordTest.mjs --constant",
+    "lint": "eslint . --ext .js,.mjs,.ts --fix",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@prisma/adapter-pg": "^6.19.2",
@@ -24,5 +24,14 @@
     "pg": "^8.16.3",
     "postal-mime": "^2.7.2",
     "prisma": "^6.19.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "typescript-eslint": "^8.5.0"
   }
 }
