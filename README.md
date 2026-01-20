@@ -58,7 +58,9 @@
 
 ### メールフェッチ処理
 
-POP3サーバーよりメールを取得して、デイリーメールテーブルに保存する。
+POP3サーバーよりメールを取得して、デイリーメールテーブルに保存する。  
+サーバー上にて定期実行することにより、自動的にメールをデイリーメール情報テーブルに蓄積できる。
+万が一、メールの取得漏れが発生した際は、全件実行を手動で行うことで補完できる。
 
 ```bash
 # 通常実行
@@ -80,7 +82,8 @@ npm run mail:fetch_all
 
 ### メールストア処理
 
-デイリーメールテーブルのメールを取得して、DBに保存されたキーワードでタグ付けとサマリー抽出を行い、マンスリーメールテーブルに保存する。
+デイリーメールテーブルのメールを取得して、DBに保存されたキーワードでタグ付けとサマリー抽出を行い、マンスリーメール情報テーブルに保存する。  
+サーバー上にて定期実行することにより、自動的にメールを分析してマンスリーメール情報テーブルに蓄積できる。
 
 ```bash
 npx tsx src/emailStore.mjs
@@ -132,7 +135,7 @@ npm run keyword:import
 
 ## テーブル定義
 
-### デイリーメールテーブル
+### デイリーメール情報テーブル
 
 ```SQL
 -- CreateTable
@@ -152,7 +155,7 @@ CREATE TABLE "mail_daily" (
 CREATE UNIQUE INDEX "mail_daily_message_id_key" ON "mail_daily"("message_id");
 ```
 
-### マンスリーメールテーブル
+### マンスリーメール情報テーブル
 
 ```SQL
 -- CreateTable
@@ -174,7 +177,7 @@ CREATE TABLE "mail_monthly" (
 CREATE UNIQUE INDEX "mail_monthly_message_id_key" ON "mail_monthly"("message_id");
 ```
 
-### 保存済みメールテーブル
+### 保存済みメール情報テーブル
 
 ```SQL
 -- CreateTable
