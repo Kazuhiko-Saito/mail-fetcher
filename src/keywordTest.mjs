@@ -3,7 +3,7 @@ import path from "path";
 import { searchKeyword, extractionRegex } from "./lib/util.mjs";
 
 const CONSTANT_FLAG = process.argv.includes("--constant");
-const MAIL_PATH = path.join(import.meta.dirname, "mail");
+const MAIL_PATH = path.join(import.meta.dirname, "../mail");
 
 /**
  * 'mail'ディレクトリ内の各メールファイル（*.txt）を読み込み、

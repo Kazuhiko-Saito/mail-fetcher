@@ -129,8 +129,8 @@ const storeMail = async (data) => {
         message_id: cleanMessageId,
         subject: cleanSubject,
         sender: cleanSender,
-        date: new Date(cleanDate),
-        received_at: date_received,
+        date_sent: new Date(cleanDate),
+        date_received: date_received,
         body: cleanBody,
       },
     });

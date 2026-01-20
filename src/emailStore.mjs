@@ -20,7 +20,7 @@ export const emailStore = async () => {
         body: true,
       },
       orderBy: {
-        received_at: "asc",
+        date_received: "asc",
       },
     });
 

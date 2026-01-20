@@ -10,7 +10,7 @@
     "mail:fetch": "npx tsx src/emailFetcher.mjs",
     "mail:fetch_all": "npx tsx src/emailFetcher.mjs --force",
     "mail:store": "npx tsx src/emailStore.mjs",
-    "keyword:import": "npx tsx src/importKeyword.mjs",
+    "keyword:import": "npx tsx src/keywordImport.mjs",
     "keyword:test_db": "npx tsx src/keywordTest.mjs",
     "keyword:test_constant": "npx tsx src/keywordTest.mjs --constant",
     "lint": "eslint . --ext .js,.mjs,.ts --fix",
