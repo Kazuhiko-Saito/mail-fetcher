@@ -2,4 +2,5 @@ MAIL_USERNAME=sample@example.local
 MAIL_PASSWORD=Password
 MAIL_SERVERNAME=pop.example.local
 MAIL_SERVERPORT=110
+MAIL_TLS_SERVERNAME=other.example.local
 DATABASE_URL="postgresql://user:pass@localhost:5432/db"
