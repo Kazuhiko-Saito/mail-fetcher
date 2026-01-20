@@ -9,3 +9,5 @@ node_modules
 
 /mail
 /doc
+
+/lib/generated/prisma

@@ -14,8 +14,8 @@
     "keyword:import": "npx tsx keywordImport.mjs"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.2.0",
-    "@prisma/client": "^7.2.0",
+    "@prisma/adapter-pg": "^6.19.2",
+    "@prisma/client": "^6.19.2",
     "dotenv": "^17.2.3",
     "node-pop3": "^0.11.0",
     "pg": "^8.16.3",

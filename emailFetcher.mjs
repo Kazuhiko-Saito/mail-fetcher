@@ -102,6 +102,7 @@ const storeMail = async (data) => {
     !email.messageId ||
     !email.subject ||
     !email.from?.address ||
+    !email.date ||
     !received_at ||
     !body
   ) {
@@ -125,6 +126,7 @@ const storeMail = async (data) => {
         message_id: cleanMessageId,
         subject: cleanSubject,
         sender: cleanSender,
+        date: new Date(email.date),
         received_at: received_at,
         body: cleanBody,
       },

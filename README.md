@@ -25,8 +25,7 @@
 
 1. 接続設定定義
 
-    `.env` を作成し、接続設定を記述する。
-    `.env.sample` に設定例があるので参照。
+    `.env` を作成し、`.env.sample` に設定例があるので参照して接続設定を記述する。
 
     ```
     MAIL_USERNAME=＜メールアカウント＞
@@ -135,6 +134,7 @@ CREATE TABLE "mail_daily" (
     "message_id" TEXT NOT NULL,
     "subject" TEXT NOT NULL,
     "sender" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
     "received_at" TIMESTAMP(3) NOT NULL,
     "body" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -154,6 +154,7 @@ CREATE TABLE "mail_monthly" (
     "message_id" TEXT NOT NULL,
     "subject" TEXT NOT NULL,
     "sender" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
     "received_at" TIMESTAMP(3) NOT NULL,
     "body" TEXT NOT NULL,
     "tag" TEXT[],
@@ -175,6 +176,7 @@ CREATE TABLE "mail_selected" (
     "message_id" TEXT NOT NULL,
     "subject" TEXT NOT NULL,
     "sender" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
     "received_at" TIMESTAMP(3) NOT NULL,
     "body" TEXT NOT NULL,
     "tag" TEXT[],
