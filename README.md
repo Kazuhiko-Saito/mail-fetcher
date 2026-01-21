@@ -243,15 +243,11 @@ CREATE UNIQUE INDEX "mail_extraction_name_key" ON "mail_extraction"("name");
 
 ### 自動実行
 
-定期実行により、POP3サーバーからメールを取得してタグ付けとサマリー抽出を行いDBに保存する手順を自動化する。
+Linux系ならcron、Windowsならタスクスケジューラーによる定期実行で、POP3サーバーからメールを取得してタグ付けとサマリー抽出を行いDBに保存する手順を自動化する。
 
-```
-crontab -e
-```
+10分ごとに自動的に実行するcronの設定例。
 
-10分ごとに自動的に実行する例。
-
-```cron
+```crontab
 */10 * * * * cd /home/user/mail-fetcher && npx tsx ./src/emailFetcher.mjs && npx tsx ./src/emailStore.mjs
 ```
 
@@ -276,6 +272,14 @@ crontab -e
       `src/emailStore.mjs` の `emailStore` 関数を呼び出す
 
 ### メンテナンス
+
+#### メール取得漏れ対応
+
+POP3サーバーに残ってるメールで取得できないものがあるときは、コマンドラインから全件実行モード（--forceオプションを付加）で実行する。
+
+```bash
+npx tsx src/emailFetcher.mjs --force
+```
 
 #### キーワード登録
 
