@@ -6,11 +6,11 @@ const CONSTANT_FLAG = process.argv.includes("--constant");
 const MAIL_PATH = path.join(import.meta.dirname, "../mail");
 
 /**
- * 'mail'ディレクトリ内の各メールファイル（*.txt）を読み込み、
+ * 'mail'ディレクトリ内の各メール本体ファイル（*.txt）を読み込み、
  * キーワード検索と情報抽出を実行してコンソールに出力する
  * @returns {void}
  */
-export const emailRegExp = async () => {
+export const keywordTest = async () => {
   const files = fs.readdirSync(MAIL_PATH);
 
   let index = 0;

@@ -38,20 +38,30 @@ export const emailStore = async () => {
       console.log(summary.join("\n"));
 
       await prisma.$transaction(async (tx) => {
-        // DBへ登録
-        await tx.mail_monthly.create({
-          data: {
+        // 重複チェック
+        const existingMail = await tx.mail_monthly.findUnique({
+          where: {
             message_id: mail.message_id,
-            subject: mail.subject,
-            sender: mail.sender,
-            date_sent: mail.date_sent,
-            date_received: mail.date_received,
-            body: mail.body,
-            tag: tag,
-            summary: summary.join("\n"),
           },
         });
 
+        if (existingMail) {
+          console.log("すでに登録されています。");
+        } else {
+          // DBへ登録
+          await tx.mail_monthly.create({
+            data: {
+              message_id: mail.message_id,
+              subject: mail.subject,
+              sender: mail.sender,
+              date_sent: mail.date_sent,
+              date_received: mail.date_received,
+              body: mail.body,
+              tag: tag,
+              summary: summary.join("\n"),
+            },
+          });
+        }
         // DBから削除
         await tx.mail_daily.delete({
           where: {

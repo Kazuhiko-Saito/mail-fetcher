@@ -27,7 +27,7 @@ export const emailFetcher = async () => {
     await client.connect();
     console.log("CONNECT success");
 
-    // モダンなSASL AUTH PLAIN認証を使用
+    // SASL AUTH PLAIN認証を使用
     const authString = `\0${mailSetting.user}\0${mailSetting.password}`;
     const base64Auth = Buffer.from(authString).toString("base64");
     await client.command("AUTH", "PLAIN", base64Auth);
@@ -123,7 +123,7 @@ const storeMail = async (data) => {
 
   // DB登録
   try {
-    // emailテーブルに登録
+    // mail_dailyテーブルに登録
     await prisma.mail_daily.create({
       data: {
         message_id: cleanMessageId,

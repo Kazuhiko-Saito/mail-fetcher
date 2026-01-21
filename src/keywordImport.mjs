@@ -57,13 +57,13 @@ async function importExtractions() {
  * メイン実行関数。検索用キーワードと抽出用キーワードのインポートを順に実行する
  * @returns {Promise<void>}
  */
-async function main() {
+async function keywordImport() {
   await importKeywords();
   console.log("\n");
   await importExtractions();
 }
 
-main()
+keywordImport()
   .catch((e) => {
     console.error("エラーが発生しました:", e);
     process.exit(1);

@@ -1,5 +1,9 @@
 # メールフェッチプログラム
 
+## 概要
+
+メールをPOP3サーバーから取得して、タグ付けとサマリー抽出を行い、DBに保存する。  
+
 ## 技術スタック
 
 - JavaScript
@@ -234,3 +238,71 @@ CREATE TABLE "mail_extraction" (
 -- CreateIndex
 CREATE UNIQUE INDEX "mail_extraction_name_key" ON "mail_extraction"("name");
 ```
+
+## 使用法
+
+### 自動実行
+
+定期実行により、POP3サーバーからメールを取得してタグ付けとサマリー抽出を行いDBに保存する手順を自動化する。
+
+```
+crontab -e
+```
+
+```cron
+*/10 * * * * cd /home/user/mail-fetcher && npx tsx ./src/emailFetcher.mjs && npx tsx ./src/emailStore.mjs
+```
+
+### 手動実行
+
+- コマンドラインから実行
+
+   ```bash
+   cd /home/user/mail-fetcher
+   npx tsx src/emailFetcher.mjs
+   npx tsx src/emailStore.mjs
+   ```
+
+- 画面等から実行
+
+   - POP3サーバーからメール取得
+
+      `src/emailFetcher.mjs` の `emailFetcher` 関数を呼び出す
+
+   - デイリーメール情報からタグ付けとサマリー抽出
+
+      `src/emailStore.mjs` の `emailStore` 関数を呼び出す
+
+### メンテナンス
+
+#### キーワード登録
+
+1. キーワードを登録・修正
+
+   - `src/lib/constant.js` を編集
+
+1. キーワードをテスト
+
+   - コマンドラインから実行
+
+      ```bash
+      cd /home/user/mail-fetcher
+      npx tsx src/keywordTest.mjs
+      ```
+
+   - 画面等から実行
+
+      `src/keywordTest.mjs` の `keywordTest` 関数を呼び出す
+
+1. キーワード登録処理を実行する
+
+   **検索用キーワードテーブルと抽出用キーワードテーブルは一度クリアされます。**
+
+   - コマンドラインから実行
+      ```bash
+      cd /home/user/mail-fetcher
+      npx tsx src/keywordImport.mjs
+      ```
+   - 画面等から実行
+
+      `src/keywordImport.mjs` の `keywordImport` 関数を呼び出す
