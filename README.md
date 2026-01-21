@@ -239,7 +239,7 @@ CREATE TABLE "mail_extraction" (
 CREATE UNIQUE INDEX "mail_extraction_name_key" ON "mail_extraction"("name");
 ```
 
-## 使用法
+## 使用例
 
 ### 自動実行
 
@@ -296,7 +296,7 @@ crontab -e
 
 1. キーワード登録処理を実行する
 
-   **検索用キーワードテーブルと抽出用キーワードテーブルは一度クリアされます。**
+   **注意： 検索用キーワードテーブルと抽出用キーワードテーブルはクリアされる**
 
    - コマンドラインから実行
       ```bash
