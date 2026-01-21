@@ -15,7 +15,7 @@ export const emailFetcher = async () => {
     password: process.env.MAIL_PASSWORD,
     host: process.env.MAIL_SERVERNAME,
     port: process.env.MAIL_SERVERPORT,
-    stls: true,
+    tls: process.env.MAIL_SERVERPORT === "995",
     tlsOptions: {
       servername: process.env.MAIL_TLS_SERVERNAME,
     },
