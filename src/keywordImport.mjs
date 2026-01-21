@@ -2,7 +2,7 @@ import { prisma } from "./lib/prisma.mjs";
 import { keywords, extractions } from "./lib/constant.js";
 
 /**
- * lib/constant.jsから検索用キーワードを読み込み、DBに登録する
+ * src/lib/constant.jsから検索用キーワードを読み込み、DBに登録する
  * @returns {Promise<void>}
  */
 async function importKeywords() {
@@ -27,7 +27,7 @@ async function importKeywords() {
 }
 
 /**
- * lib/constant.jsから抽出用キーワードを読み込み、DBに登録する
+ * src/lib/constant.jsから抽出用キーワードを読み込み、DBに登録する
  * @returns {Promise<void>}
  */
 async function importExtractions() {
