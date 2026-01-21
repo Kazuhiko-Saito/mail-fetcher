@@ -44,4 +44,4 @@ export const keywordTest = async () => {
 };
 
 // 実行
-emailRegExp();
+keywordTest();
