@@ -249,6 +249,8 @@ CREATE UNIQUE INDEX "mail_extraction_name_key" ON "mail_extraction"("name");
 crontab -e
 ```
 
+10分ごとに自動的に実行する例。
+
 ```cron
 */10 * * * * cd /home/user/mail-fetcher && npx tsx ./src/emailFetcher.mjs && npx tsx ./src/emailStore.mjs
 ```
